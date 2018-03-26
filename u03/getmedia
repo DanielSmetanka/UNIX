@@ -9,15 +9,24 @@ Pracuje se souborem a vyhleda adresy obrazku/zvuku
 	 -s	vypise adresy zvuku (.wav, .mp3, .ogg)"; exit; fi;
 
 if [ "$1" = "-s" ]; then
-	cat $2 | tr "\"" "\n" | grep -e .wav -e .mp3 -e .ogg; 
+	grep  'http[^ ]*\.wav' $2;
+	grep  'http[^ ]*\.mp3' $2;
+	grep  'http[^ ]*\.ogg' $2;
 fi;
 
 if [ "$1" = "-i" ]; then
-	cat $2 | tr "\"" "\n" | grep -e .jpg -e .png -e .svg; 
+	grep  'http[^ ]*\.jpg' $2;
+        grep  'http[^ ]*\.png' $2;
+        grep  'http[^ ]*\.svg' $2;
 fi;
 
 if [ "$1" = *".html" ]; then
-	cat $1 | tr "\"" "\n" | grep -e .jpg -e .png -e .svg -e .wav -e .mp3 -e .ogg; 
+	grep  'http[^ ]*\.wav' $1;
+        grep  'http[^ ]*\.mp3' $1;
+        grep  'http[^ ]*\.ogg' $1;
+	grep  'http[^ ]*\.jpg' $1;
+        grep  'http[^ ]*\.png' $1;
+        grep  'http[^ ]*\.svg' $1;
 fi;
 
 
