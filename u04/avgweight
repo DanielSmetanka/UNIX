@@ -1,0 +1,23 @@
+#! /bin/bash
+
+declare -i col=`./colnumbers data5.csv | grep -e 'Weight' | cut -f1`
+declare -i count=0
+declare -i NumOfLines=`wc -l $1 | cut -d' ' -f1`
+declare -i total=0
+
+for i in `seq 2 $NumOfLines`
+do
+
+declare -i actual=`sed -n "${i}{p;q;}" $1 | cut -d';' -f$col | grep -o '^[0-9]*'`
+
+if [ "$actual" -gt "0" ]
+then
+total=$(($total + $actual))
+count=$(($count + 1))
+fi
+
+done
+
+res=$((total / count))
+
+echo $res

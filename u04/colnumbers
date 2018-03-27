@@ -1,0 +1,14 @@
+#! /bin/bash
+
+NumOfCol=`head -n1 $1 | tr ';' ' ' | wc -w`
+
+for i in `seq 1 $NumOfCol`
+do
+
+line=`head -n1 $1 | cut -d';' -f$i`
+
+echo $i$'\t'$line
+
+done
+
+
