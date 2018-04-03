@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cut -d';' -f1 $1 | tr -d "\"" > names_sortlength
+
+cat names_sortlength | while read name 
+do
+
+echo $name | wc -m | cut -f2 >> length_sortlength
+
+done
+
+paste length_sortlength names_sortlength | sort -n -k1,1| cut -f2
+
+rm names_sortlength
+rm length_sortlength
+
+
