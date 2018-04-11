@@ -14,14 +14,14 @@ then
 		fi
 	fi
 	
-	find $path -type f | while IFS='' read -r f || [[ -n "$f" ]]; 
+	find "$path" -type f | while IFS='' read -r f || [[ -n "$f" ]]; 
 	do
 		name=`basename "$f"`
 		LCname=`tr [:upper:] [:lower:] <<< "$name"`
 
 		if [[ "$name" =~ [[:lower:]] ]] && [[ "$name" = "$LCname" ]] && [[ "$name" != "capsmod" ]]
 		then
-			dir=`dirname "$f"`
+			dir="`dirname "$f"`"
 			sl="/"
 			newname="$dir$sl$(tr [:lower:] [:upper:] <<< "$name")"
 
@@ -38,14 +38,14 @@ else
 	fi
 
 
-	find $path -type f | while IFS='' read -r f || [[ -n "$f" ]];
+	find "$path" -type f | while IFS='' read -r f || [[ -n "$f" ]];
         do   	
                	name="`basename "$f"`"
 		UCname="`tr [:lower:] [:upper:] <<< "$name"`"
 	
 		if [[ "$name" =~ [[:upper:]] ]] && [[ "$name" = "$UCname"  ]]
                 then    
-                        dir=`dirname "$f"`
+                        dir="`dirname "$f"`"
                         sl="/"  
                         newname="$dir$sl$(tr [:upper:] [:lower:] <<< "$name")"
                      	mv -- "$f" "$newname"
