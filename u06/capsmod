@@ -1,0 +1,54 @@
+#!/bin/sh
+
+if [ "$1" = "-r" ] || [ "$2" = "-r" ]
+then
+	if [ "$2" = "-r" ]
+	then
+		path="$1"
+	else 
+		if [ "$2" = "" ]
+		then
+			path="."
+		else 
+			path="$2"
+		fi
+	fi
+	
+	find $path -type f | while IFS='' read -r f || [[ -n "$f" ]]; 
+	do
+		name=`basename "$f"`
+		LCname=`tr [:upper:] [:lower:] <<< "$name"`
+
+		if [[ "$name" =~ [[:lower:]] ]] && [[ "$name" = "$LCname" ]] && [[ "$name" != "capsmod" ]]
+		then
+			dir=`dirname "$f"`
+			sl="/"
+			newname="$dir$sl$(tr [:lower:] [:upper:] <<< "$name")"
+
+			mv --  "$f" "$newname"	
+		fi
+			
+	done
+else
+	if [ "$1" = "" ]
+	then
+		path="."
+	else 
+		path="$1"
+	fi
+
+
+	find $path -type f | while IFS='' read -r f || [[ -n "$f" ]];
+        do   	
+               	name="`basename "$f"`"
+		UCname="`tr [:lower:] [:upper:] <<< "$name"`"
+	
+		if [[ "$name" =~ [[:upper:]] ]] && [[ "$name" = "$UCname"  ]]
+                then    
+                        dir=`dirname "$f"`
+                        sl="/"  
+                        newname="$dir$sl$(tr [:upper:] [:lower:] <<< "$name")"
+                     	mv -- "$f" "$newname"
+                fi               
+        done
+fi
